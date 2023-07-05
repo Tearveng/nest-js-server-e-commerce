@@ -16,7 +16,7 @@ import * as fs from 'fs';
       http: process.env.NODE_ENV !== 'production',
     }),
     ConfigModule.forRoot({
-      envFilePath: ['.env.development.local'],
+      envFilePath: ['.env'],
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
