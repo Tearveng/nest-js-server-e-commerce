@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
+import * as fs from 'fs';
 
 @Module({
   imports: [
@@ -25,7 +26,12 @@ import { UserModule } from './user/user.module';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
-      synchronize: true,
+      ssl: {
+        ca: fs.readFileSync(process.env.SSL_CA_CERTIFICATES),
+      },
+      autoLoadEntities: true,
+
+      // synchronize: true,
     }),
     AuthModule,
     UserModule,
