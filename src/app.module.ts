@@ -25,7 +25,7 @@ import { UserModule } from './user/user.module';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
-      // autoLoadEntities: true,
+      autoLoadEntities: true,
       // ssl: {
       //   ca: fs.readFileSync(process.env.SSL_CA_CERTIFICATES),
       // },
