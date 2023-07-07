@@ -14,9 +14,9 @@ import { UserModule } from './user/user.module';
     DevtoolsModule.register({
       http: process.env.NODE_ENV !== 'production',
     }),
-    ConfigModule.forRoot({
-      envFilePath: ['.env.development.local'],
-    }),
+    // ConfigModule.forRoot({
+    //   envFilePath: ['.env.development.local'],
+    // }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
