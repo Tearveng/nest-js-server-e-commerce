@@ -25,11 +25,13 @@ import { UserModule } from './user/user.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: [UserEntity],
+      autoLoadEntities: true,
+      
       // autoLoadEntities: true,
       // ssl: {
       //   ca: fs.readFileSync(process.env.SSL_CA_CERTIFICATES),
       // },
-      synchronize: true,
+      // synchronize: true,
     }),
     AuthModule,
     UserModule,
