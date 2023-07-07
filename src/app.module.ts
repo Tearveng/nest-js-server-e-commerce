@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -7,6 +6,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
+import { UserEntity } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -24,7 +24,7 @@ import { UserModule } from './user/user.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [`${__dirname}/**/*.entity{.js,.ts}`],
+      entities: [UserEntity],
       // autoLoadEntities: true,
       // ssl: {
       //   ca: fs.readFileSync(process.env.SSL_CA_CERTIFICATES),
