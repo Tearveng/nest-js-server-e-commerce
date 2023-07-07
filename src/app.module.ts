@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -13,9 +14,9 @@ import { UserModule } from './user/user.module';
     DevtoolsModule.register({
       http: process.env.NODE_ENV !== 'production',
     }),
-    // ConfigModule.forRoot({
-    //   envFilePath: ['.env.development.local'],
-    // }),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local'],
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -28,7 +29,7 @@ import { UserModule } from './user/user.module';
       // ssl: {
       //   ca: fs.readFileSync(process.env.SSL_CA_CERTIFICATES),
       // },
-      // synchronize: true,
+      synchronize: true,
     }),
     AuthModule,
     UserModule,
