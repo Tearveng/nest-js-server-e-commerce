@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Post, UploadedFile, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiConsumes, ApiTags } from "@nestjs/swagger";
+import { DeleteResult, UpdateResult } from "typeorm";
 import { CreateProductDto } from "./dtos/createProduct.dto";
+import { UpdateProductDto } from "./dtos/updateProduct.dto";
 import { ProductEntity } from "./entities/product.entity";
 import { ProductService } from "./product.service";
 
@@ -24,5 +26,17 @@ export class ProductController {
         const products = await this.productService.getAllProducts();
 
         return products
+    }
+
+    @Put('/update/:productId')
+    async updateProduct(@Body() updateDto: UpdateProductDto, @Param('productId') productId: number): Promise<UpdateResult> {
+        const product = await this.productService.updateProduct(updateDto, productId);
+
+        return product;
+    }
+
+    @Delete('/delete/:productId')
+    async deleteProduct(@Param('productId') productId: number): Promise<DeleteResult> {
+       return await this.productService.deleteProduct(productId);
     }
 }

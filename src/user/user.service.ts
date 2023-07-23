@@ -83,4 +83,15 @@ export class UserService {
     });
 
   }
+
+  // Reset password
+  async resetPassword(password: string, userId: number): Promise<UserEntity> {
+    const user = await this.findUserById(userId);
+    const passwordHashed = await createPasswordHashed(password);
+
+    return this.userRepository.save({
+      ...user,
+      password: passwordHashed
+    })
+  }
 }

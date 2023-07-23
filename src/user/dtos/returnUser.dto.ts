@@ -5,6 +5,7 @@ export class ReturnUserDto {
     name: string;
     email: string;
     phone: string;
+    country: string;
     typeUser: number;
     created_at: Date
 
@@ -13,6 +14,7 @@ export class ReturnUserDto {
         this.name = userEntity.name;
         this.email =userEntity.email;
         this.phone = userEntity.phone;
+        this.country = userEntity.country;
         this.typeUser = userEntity.typeUser;
         this.created_at = userEntity.createdAt;
     }

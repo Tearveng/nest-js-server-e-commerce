@@ -1,3 +1,4 @@
+import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
@@ -6,17 +7,21 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
+import { MailModule } from './mail/mail.module';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
+
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ResetPassModule } from './resetPassword/resetPass.module';
 
 @Module({
   imports: [
     DevtoolsModule.register({
       http: process.env.NODE_ENV !== 'production',
     }),
-    // ConfigModule.forRoot({
-    //   envFilePath: ['.env.development.local'],
-    // }),
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -31,6 +36,18 @@ import { UserModule } from './user/user.module';
       // },
       synchronize: true,
     }),
+    MailerModule.forRoot({
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      template: {
+        dir: process.cwd() + '/templates/',
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true,
+        },
+      },
+    }),
+    MailModule,
+    ResetPassModule,
     AuthModule,
     UserModule,
     CategoryModule,

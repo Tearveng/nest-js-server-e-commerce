@@ -19,7 +19,7 @@ export class UserController {
         return this.userService.createUser(createUser);
     }
 
-    @Roles(UserType.ADMIN)
+    // @Roles(UserType.ADMIN)
     @Get('/all')
     async getAllUsers(): Promise<ReturnUserDto[]> {
         const users = await this.userService.getAllUsers();

@@ -4,10 +4,14 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    cors: true,
-    snapshot: true
+    cors: false,
+    snapshot: true,
   });
-  app.setGlobalPrefix('api/v1')
+  app.enableCors({
+    allowedHeaders: ['*'],
+    origin: ['https://47b6-45-115-82-5.ngrok-free.app', 'http://localhost:3000'],
+  });
+  app.setGlobalPrefix('api/v1');
   const config = new DocumentBuilder()
     .setTitle('Test example')
     .setDescription('Test API description')
